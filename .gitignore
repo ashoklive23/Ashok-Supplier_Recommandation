@@ -1,0 +1,8 @@
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.streamlit/
+.DS_Store
+*.csv
+# Keeping requirements.txt and .py files only for clean push
