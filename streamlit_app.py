@@ -16,16 +16,16 @@ st.set_page_config(
 # AND strictly styles the dropdowns for production-grade visual excellence.
 st.markdown("""
 <style>
-    /* Global Background: Deep Black/Navy */
-    .stApp { 
-        background-color: #0f172a !important; 
-        color: #ffffff !important; 
+    /* GLOBAL DARK MODE - ABSOLUTE BLACK */
+    .stApp, section[data-testid="stSidebar"], div[data-testid="stSidebar"] {
+        background-color: #000000 !important;
+        color: #ffffff !important;
     }
     
-    /* Sidebar: Matches the Dark Theme */
+    /* Force Sidebar & App Background to Absolute Black */
     section[data-testid="stSidebar"] {
-        background-color: #1e293b !important;
-        border-right: 1px solid #334155;
+        background-color: #000000 !important;
+        border-right: 1px solid #333333;
     }
     
     /* Force ALL headers to Pure White */
@@ -36,15 +36,35 @@ st.markdown("""
 
     /* Recommendation Card: Dark mode with subtle border */
     .recommendation-card {
-        background-color: #1e293b;
-        border: 2px solid #334155;
+        background-color: #111827; /* Very dark slate for contrast */
+        border: 2px solid #374151;
         padding: 40px;
         border-radius: 12px;
         margin-bottom: 30px;
         color: #ffffff !important;
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
     }
     
+    /* Dropdown/Selectbox styling: Pure Black/White for high contrast */
+    div[data-baseweb="select"] {
+        background-color: #000000 !important;
+        border: 1px solid #ffffff !important;
+        border-radius: 4px !important;
+    }
+    div[data-baseweb="select"] * {
+        color: #ffffff !important;
+    }
+    ul[data-testid="stSelectboxVirtualList"] {
+        background-color: #000000 !important;
+        border: 1px solid #ffffff !important;
+    }
+    li[role="option"] {
+        background-color: #000000 !important;
+        color: #ffffff !important;
+    }
+    li[role="option"]:hover {
+        background-color: #333333 !important;
+    }
+
     /* Force ALL standard text/lists to White */
     .stMarkdown, p, span, li, div {
         color: #ffffff !important;
@@ -68,7 +88,7 @@ st.markdown("""
     
     /* Tables/Dataframes: Ensure dark mode compatibility */
     .stDataFrame, div[data-testid="stTable"] {
-        background-color: #1e293b !important;
+        background-color: #111827 !important;
         color: #ffffff !important;
     }
     
@@ -82,29 +102,9 @@ st.markdown("""
         border-bottom-color: #38bdf8 !important;
     }
 
-    /* STYLING DROPDOWNS (SELECTBOX) FOR PRODUCTION */
-    /* Absolute Black Background for Search Engine visibility */
-    div[data-baseweb="select"] {
-        background-color: #000000 !important;
-        border: 1px solid #38bdf8 !important; /* Stylish Blue Border */
-        border-radius: 8px !important;
-    }
-    div[data-baseweb="select"] * {
-        color: #ffffff !important; /* High-contrast white text */
-    }
-    /* Style the dropdown list items */
-    ul[data-testid="stSelectboxVirtualList"] {
-        background-color: #000000 !important;
+    /* Force all text in sidebar to white */
+    section[data-testid="stSidebar"] * {
         color: #ffffff !important;
-        border: 1px solid #38bdf8 !important;
-    }
-    li[role="option"] {
-        background-color: #000000 !important;
-        color: #ffffff !important;
-    }
-    li[role="option"]:hover {
-        background-color: #1e293b !important;
-        color: #38bdf8 !important;
     }
 </style>
 """, unsafe_allow_html=True)
