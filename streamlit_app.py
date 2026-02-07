@@ -84,12 +84,12 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- Data Loading ---
-# Use relative path for Streamlit Cloud compatibility
 DATA_PATH = 'supplier_history_v2.csv'
 
 @st.cache_data
 def load_data():
     if not os.path.exists(DATA_PATH):
+        st.error(f"DEPLOYMENT ERROR: File '{DATA_PATH}' not found in the application root. Please ensure it is pushed to GitHub.")
         return pd.DataFrame()
     try:
         df = pd.read_csv(DATA_PATH)
@@ -97,10 +97,18 @@ def load_data():
         if 'Year' not in df.columns:
             df['Year'] = df['PO_Created_Date'].dt.year
         return df.dropna(subset=['Supplier_Name', 'Part_Number'])
-    except Exception:
+    except Exception as e:
+        st.error(f"CORRUPT DATA ERROR: Could not read CSV. Details: {e}")
         return pd.DataFrame()
 
 df_history = load_data()
+
+# Production Debug Info (Hidden in Expander)
+with st.sidebar.expander("🛠️ Debug Info"):
+    st.write(f"File Found: {os.path.exists(DATA_PATH)}")
+    st.write(f"Records Loaded: {len(df_history)}")
+    if not df_history.empty:
+        st.write(f"Columns: {list(df_history.columns)}")
 
 # --- Analysis Logic ---
 def get_supplier_performance(part_id, year):
