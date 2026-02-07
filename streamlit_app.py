@@ -223,7 +223,7 @@ else:
     selected_year = "All Years"
 
 # --- MAIN CONTENT ---
-st.title("🚀 Supplier Recommandation Analytics Dashboard")
+st.title("� Supplier Recommandation Analytics Dashboard")
 st.markdown("---")
 
 if df_history.empty:
