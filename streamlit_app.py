@@ -13,6 +13,7 @@ st.set_page_config(
 
 # --- PREMIUM DARK THEME CSS ---
 # This ensures 100% white text on black/dark backgrounds for all components
+# AND strictly styles the dropdowns for production-grade visual excellence.
 st.markdown("""
 <style>
     /* Global Background: Deep Black/Navy */
@@ -80,6 +81,31 @@ st.markdown("""
         color: #ffffff !important;
         border-bottom-color: #38bdf8 !important;
     }
+
+    /* STYLING DROPDOWNS (SELECTBOX) FOR PRODUCTION */
+    /* This targets the input field and the list items to be high-contrast */
+    div[data-baseweb="select"] {
+        background-color: #0f172a !important;
+        border-radius: 8px !important;
+    }
+    div[data-baseweb="select"] div {
+        color: #ffffff !important; /* Text inside the selected box */
+    }
+    /* Style the dropdown list items */
+    ul[data-testid="stSelectboxVirtualList"] {
+        background-color: #1e293b !important;
+        color: #ffffff !important;
+        border: 1px solid #334155 !important;
+    }
+    li[role="option"] {
+        background-color: #1e293b !important;
+        color: #ffffff !important;
+    }
+    li[role="option"]:hover {
+        background-color: #334155 !important;
+        color: #38bdf8 !important;
+    }
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -89,7 +115,7 @@ DATA_PATH = 'supplier_history_v2.csv'
 @st.cache_data
 def load_data():
     if not os.path.exists(DATA_PATH):
-        st.error(f"DEPLOYMENT ERROR: File '{DATA_PATH}' not found in the application root. Please ensure it is pushed to GitHub.")
+        st.error(f"DEPLOYMENT ERROR: File '{DATA_PATH}' not found in the application root.")
         return pd.DataFrame()
     try:
         df = pd.read_csv(DATA_PATH)
@@ -102,13 +128,6 @@ def load_data():
         return pd.DataFrame()
 
 df_history = load_data()
-
-# Production Debug Info (Hidden in Expander)
-with st.sidebar.expander("🛠️ Debug Info"):
-    st.write(f"File Found: {os.path.exists(DATA_PATH)}")
-    st.write(f"Records Loaded: {len(df_history)}")
-    if not df_history.empty:
-        st.write(f"Columns: {list(df_history.columns)}")
 
 # --- Analysis Logic ---
 def get_supplier_performance(part_id, year):
@@ -191,7 +210,7 @@ elif selected_part:
 
         st.markdown("<br>", unsafe_allow_html=True)
 
-        # --- COMPARATIVE PERFORMANCE MATRIX (BLACK BACKGROUND) ---
+        # --- COMPARATIVE PERFORMANCE MATRIX ---
         st.subheader("📊 Comparative Performance Matrix")
         display_df = performance_table[['Supplier Name', 'Unit Price ($)', 'Lead Time (Days)', 'OTD %']]
         st.dataframe(
@@ -199,13 +218,13 @@ elif selected_part:
                 'Unit Price ($)': '${:,.2f}',
                 'Lead Time (Days)': '{:.1f}',
                 'OTD %': '{:.1f}%'
-            }), # Highlighting is removed for maximum contrast as requested
+            }),
             use_container_width=True
         )
 
         # --- VISUALS ---
         st.divider()
-        tab1, tab2 = st.tabs(["📉 Comparative Analysis Year", "� Transaction Logs"])
+        tab1, tab2 = st.tabs(["📉 Comparative Analysis Year", "📋 Transaction Logs"])
         
         with tab1:
             col1, col2 = st.columns(2)
@@ -226,4 +245,4 @@ elif selected_part:
 else:
     st.info("Select criteria to begin analysis.")
 
-st.markdown("<div style='text-align: center; color: #475569; padding: 60px;'>PRODUCTION READY | ENTERPRISE PROCUREMENT INTEL v5.1</div>", unsafe_allow_html=True)
+st.markdown("<div style='text-align: center; color: #475569; padding: 60px;'>PRODUCTION READY | ENTERPRISE PROCUREMENT INTEL v6.0</div>", unsafe_allow_html=True)
