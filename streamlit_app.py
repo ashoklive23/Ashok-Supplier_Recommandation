@@ -211,21 +211,23 @@ def get_supplier_performance(part_id, year):
         return None
 
 # --- SIDEBAR ---
-st.sidebar.markdown("# ⚙️ CRITERIA")
+st.sidebar.markdown("# 🛠️ PROCUREMENT ENGINE")
 if not df_history.empty:
+    st.sidebar.markdown("### 🔍 Filter Criteria")
     part_list = sorted(df_history['Part_Number'].unique().tolist())
-    selected_part = st.sidebar.selectbox("Part Number", part_list)
+    selected_part = st.sidebar.selectbox("📦 Select Part Number", part_list)
     available_years = ["All Years"] + sorted([str(int(y)) for y in df_history['Year'].dropna().unique()], reverse=True)
-    selected_year = st.sidebar.selectbox("Analysis Year", available_years)
+    selected_year = st.sidebar.selectbox("📅 Analysis Year", available_years)
 else:
     selected_part = None
     selected_year = "All Years"
 
 # --- MAIN CONTENT ---
-st.title("Supplier Recommandation Analytics Dashboard")
+st.title("🚀 Supplier Recommandation Analytics Dashboard")
+st.markdown("---")
 
 if df_history.empty:
-    st.error("Data source missing.")
+    st.error("🚨 Critical Error: Data source missing.")
 elif selected_part:
     performance_table = get_supplier_performance(selected_part, selected_year)
     
@@ -235,14 +237,19 @@ elif selected_part:
         # --- CONCLUSION CARD ---
         st.markdown(f"""
         <div class="recommendation-card">
-            <span style="color: #94a3b8; font-weight: 800; font-size: 14px; text-transform: uppercase;">Decision Conclusion</span>
-            <h1 style="margin-top: 5px; font-size: 4rem; color: #ffffff !important;">{best['Supplier Name']}</h1>
-            <div style="margin-top: 20px; font-size: 1.25rem; font-weight: 400;">
-                Recommended for <span style="font-weight: 800; color: #38bdf8;">{selected_part}</span> based on <b>{selected_year}</b> performance data.
-                <ul style="margin-top: 15px;">
-                    <li><b>Unit Price:</b> Average of <span class="highlight-green">${best['Unit Price ($)']:.2f}</span></li>
-                    <li><b>Lead Time:</b> Delivered in <span class="highlight-blue">{best['Lead Time (Days)']:.1f} Days</span></li>
-                    <li><b>Reliability:</b> <span class="highlight-green">{best['OTD %']:.1f}%</span> On-Time Delivery</li>
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <span style="font-size: 2.5rem;">🏆</span>
+                <div>
+                   <span style="color: #94a3b8; font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">AI Top-Ranked Partner</span>
+                   <h1 style="margin: 0; font-size: 4rem; color: #ffffff !important; line-height: 1;">{best['Supplier Name']}</h1>
+                </div>
+            </div>
+            <div style="margin-top: 30px; font-size: 1.25rem; font-weight: 400; border-top: 1px solid #334155; pt: 20px;">
+                Strategic selection for <span style="font-weight: 800; color: #38bdf8;">{selected_part}</span> based on <b>{selected_year}</b> metrics.
+                <ul style="margin-top: 20px; list-style-type: none; padding-left: 0;">
+                    <li style="margin-bottom: 10px;">🏷️ <b>Price Efficiency:</b> <span class="highlight-green">${best['Unit Price ($)']:.2f}</span> avg. unit cost</li>
+                    <li style="margin-bottom: 10px;">⚡ <b>Logistics Velocity:</b> <span class="highlight-blue">{best['Lead Time (Days)']:.1f} Days</span> lead time</li>
+                    <li>🛡️ <b>Quality Assurance:</b> <span class="highlight-green">{best['OTD %']:.1f}%</span> Reliability Score</li>
                 </ul>
             </div>
         </div>
@@ -250,45 +257,53 @@ elif selected_part:
 
         # --- KPI ROW ---
         k1, k2, k3 = st.columns(3)
-        k1.metric("Avg Unit Price", f"${best['Unit Price ($)']:.2f}")
-        k2.metric("Avg Lead Time", f"{best['Lead Time (Days)']:.1f} Days")
-        k3.metric("OTD Reliability", f"{best['OTD %']:.1f}%")
+        with k1:
+            st.markdown("### 💳 Cost Base")
+            st.metric("Avg Unit Price", f"${best['Unit Price ($)']:.2f}")
+        with k2:
+            st.markdown("### ⏱️ Logistics")
+            st.metric("Avg Lead Time", f"{best['Lead Time (Days)']:.1f} Days")
+        with k3:
+            st.markdown("### 💎 Reliability")
+            st.metric("OTD Success Rate", f"{best['OTD %']:.1f}%")
 
         st.markdown("<br>", unsafe_allow_html=True)
 
         # --- COMPARATIVE PERFORMANCE MATRIX ---
-        st.subheader("📊 Comparative Performance Matrix")
-        display_df = performance_table[['Supplier Name', 'Unit Price ($)', 'Lead Time (Days)', 'OTD %']]
+        st.subheader("� Comparative Intelligence Matrix")
+        display_df = performance_table[['Supplier Name', 'Unit Price ($)', 'Lead Time (Days)', 'OTD %', 'Score']]
         st.dataframe(
             display_df.style.format({
                 'Unit Price ($)': '${:,.2f}',
                 'Lead Time (Days)': '{:.1f}',
-                'OTD %': '{:.1f}%'
+                'OTD %': '{:.1f}%',
+                'Score': '{:.3f}'
             }),
             use_container_width=True
         )
 
         # --- VISUALS ---
         st.divider()
-        tab1, tab2 = st.tabs(["📉 Comparative Analysis Year", "📋 Transaction Logs"])
+        tab1, tab2 = st.tabs(["� Performance Benchmarking", "� Raw Transaction Audit"])
         
         with tab1:
             col1, col2 = st.columns(2)
             with col1:
-                st.write("#### Total Price per Supplier ($)")
+                st.write("#### 📉 Cost Variance Analysis")
                 st.bar_chart(display_df.set_index('Supplier Name')['Unit Price ($)'], color="#38bdf8")
             with col2:
-                st.write("#### OTD % Reliability per Supplier")
+                st.write("#### 📈 Reliability Forecasting (OTD %)")
                 st.bar_chart(display_df.set_index('Supplier Name')['OTD %'], color="#4ade80")
         
         with tab2:
-            st.write(f"Raw PO Data: {selected_part}")
+            st.write(f"### 🧪 Audit Log: {selected_part}")
             raw_view = df_history[df_history['Part_Number'] == selected_part]
             if selected_year != "All Years":
                 raw_view = raw_view[raw_view['Year'] == int(selected_year)]
-            st.dataframe(raw_view.drop(columns=['Year']), use_container_width=True)
+            st.dataframe(raw_view.drop(columns=['Year']), hide_index=True, use_container_width=True)
 
 else:
-    st.info("Select criteria to begin analysis.")
+    st.info("💡 Pro Tip: Select a Part Number from the left sidebar to begin the AI Supplier Audit.")
 
-st.markdown("<div style='text-align: center; color: #475569; padding: 60px;'>PRODUCTION READY | ENTERPRISE PROCUREMENT INTEL v7.0</div>", unsafe_allow_html=True)
+st.markdown("<br><br>", unsafe_allow_html=True)
+st.markdown("<div style='text-align: center; color: #475569; padding: 20px; border-top: 1px solid #1e293b;'>🛡️ ENTERPRISE GRADE PROCUREMENT INTELLIGENCE SYSTEM v8.0 | Powered by Strategic AI</div>", unsafe_allow_html=True)
