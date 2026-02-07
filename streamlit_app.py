@@ -26,11 +26,14 @@ st.markdown("""
     header[data-testid="stHeader"] {
         background-color: #0f172a !important;
     }
-    header[data-testid="stHeader"] svg {
-        fill: #ffffff !important; /* Make icons white */
+    header[data-testid="stHeader"] * {
+        color: #ffffff !important;
+        fill: #ffffff !important;
     }
-    header[data-testid="stHeader"] span {
-        color: #ffffff !important; /* Make "Share" text white */
+    
+    /* Force specific toolbar icons */
+    [data-testid="stHeader"] button {
+        color: #ffffff !important;
     }
     
     /* Sidebar: Professional Slate */
