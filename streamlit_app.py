@@ -35,6 +35,19 @@ st.markdown("""
     [data-testid="stHeader"] button {
         color: #ffffff !important;
     }
+
+    /* Target the Main Menu Popover (Top Right) */
+    div[data-testid="stPopupMenu"], div[data-baseweb="popover"], ul[role="listbox"] {
+        background-color: #1e293b !important;
+        border: 1px solid #334155 !important;
+    }
+    div[data-testid="stPopupMenu"] *, div[data-baseweb="popover"] *, ul[role="listbox"] * {
+        color: #ffffff !important;
+    }
+    /* Style menu items on hover */
+    div[data-baseweb="popover"] li:hover {
+        background-color: #334155 !important;
+    }
     
     /* Sidebar: Professional Slate */
     section[data-testid="stSidebar"] {
