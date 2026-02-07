@@ -36,17 +36,35 @@ st.markdown("""
         color: #ffffff !important;
     }
 
-    /* Target the Main Menu Popover (Top Right) */
-    div[data-testid="stPopupMenu"], div[data-baseweb="popover"], ul[role="listbox"] {
-        background-color: #1e293b !important;
+    /* Target the Main Menu Popover (Top Right) & ALL other popovers */
+    div[data-testid="stPopupMenu"], 
+    div[data-baseweb="popover"], 
+    div[data-baseweb="menu"], 
+    ul[role="listbox"], 
+    div[role="dialog"] {
+        background-color: #0f172a !important; /* Matches main app background */
         border: 1px solid #334155 !important;
-    }
-    div[data-testid="stPopupMenu"] *, div[data-baseweb="popover"] *, ul[role="listbox"] * {
         color: #ffffff !important;
     }
+    
+    /* Force text and icons inside these containers to be white */
+    div[data-baseweb="popover"] *, 
+    div[data-baseweb="menu"] *, 
+    ul[role="listbox"] *, 
+    div[role="dialog"] * {
+        color: #ffffff !important;
+        fill: #ffffff !important;
+    }
+    
+    /* Ensure list items (menu options) have the right background */
+    li[role="option"], li {
+        background-color: transparent !important;
+    }
+    
     /* Style menu items on hover */
-    div[data-baseweb="popover"] li:hover {
-        background-color: #334155 !important;
+    li[role="option"]:hover, li:hover {
+        background-color: #1e293b !important;
+        color: #38bdf8 !important;
     }
     
     /* Sidebar: Professional Slate */
