@@ -253,4 +253,4 @@ elif selected_part:
 else:
     st.info("Select criteria to begin analysis.")
 
-st.markdown("<div style='text-align: center; color: #475569; padding: 60px;'>PRODUCTION READY | ENTERPRISE PROCUREMENT INTEL v6.0</div>", unsafe_allow_html=True)
+st.markdown("<div style='text-align: center; color: #475569; padding: 60px;'>PRODUCTION READY | ENTERPRISE PROCUREMENT INTEL v7.0</div>", unsafe_allow_html=True)

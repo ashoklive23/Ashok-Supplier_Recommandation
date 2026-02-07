@@ -3,56 +3,52 @@ import numpy as np
 import random
 from datetime import datetime, timedelta
 
-# Seed for reproducibility
-np.random.seed(42)
-random.seed(42)
-
 # Configuration
-num_samples = 10000
+num_samples = 15000 # Increased for better statistical significance
 suppliers = ['Supplier A', 'Supplier B', 'Supplier C']
 parts = [f'PART-{i:04d}' for i in range(1, 101)]
 
 data = []
-
-# Define date ranges for 2024 and 2025
 date_ranges = [
     (datetime(2024, 1, 1), datetime(2024, 12, 31)),
     (datetime(2025, 1, 1), datetime(2025, 12, 31))
 ]
 
 for i in range(num_samples):
-    supplier = random.choice(suppliers)
     part_number = random.choice(parts)
-    po_number = f'PO-{200000 + i}'
+    po_number = f'PO-{400000 + i}'
     
-    # Pick a random date in 2024 or 2025
+    # DETERMINE THE "STRIKE" WINNER FOR THIS PART
+    part_id_int = int(part_number.split('-')[1])
+    
+    # Diversify the winner based on Part ID range
+    if part_id_int <= 33:
+        winner = 'Supplier A'
+    elif part_id_int <= 66:
+        winner = 'Supplier B'
+    else:
+        winner = 'Supplier C'
+    
+    # Assign supplier for THIS record (random, but winner gets better stats)
+    supplier = random.choice(suppliers)
+    
+    # Pick a random date
     dr = random.choice(date_ranges)
     po_created_dt = dr[0] + timedelta(days=random.randint(0, (dr[1] - dr[0]).days))
     
-    # Base Price logic
-    base_price = random.uniform(50.0, 500.0)
-    if supplier == 'Supplier A': 
-        price = base_price * 0.92 # Cheapest
-    elif supplier == 'Supplier B':
-        price = base_price * 1.08 # Premium
+    # --- DIVERSIFIED PERFORMANCE LOGIC ---
+    if supplier == winner:
+        # The winner for this part gets the BEST stats across all metrics
+        price = random.uniform(50.0, 150.0) # Lower price
+        lead_time_promised = random.randint(3, 7) # Faster promise
+        actual_delay = random.randint(-5, 0) # Always on time or early
     else:
-        price = base_price
-    
-    # Promise Date
-    lead_time_promised = random.randint(7, 21)
-    promise_dt = po_created_dt + timedelta(days=lead_time_promised)
-    
-    # Actual delivery performance
-    if supplier == 'Supplier A':
-        # Often late
-        actual_delay = random.randint(-1, 12)
-    elif supplier == 'Supplier B':
-        # Usually early/on-time
-        actual_delay = random.randint(-5, 1)
-    else:
-        # Average
-        actual_delay = random.randint(-2, 5)
+        # Non-winners get worse stats to ensure they lose the scoring
+        price = random.uniform(160.0, 400.0) # Higher price
+        lead_time_promised = random.randint(10, 25) # Slower promise
+        actual_delay = random.randint(1, 15) # Likely late
         
+    promise_dt = po_created_dt + timedelta(days=lead_time_promised)
     delivered_dt = promise_dt + timedelta(days=actual_delay)
     on_time = 1 if (delivered_dt <= promise_dt) else 0
     
@@ -72,4 +68,5 @@ for i in range(num_samples):
 
 df = pd.DataFrame(data)
 df.to_csv('d:/Ashok Project -Kaggle/supplier_history_v2.csv', index=False)
-print("Generated 10,000 samples for 2024-2025.")
+print("SUCCESS: Generated 15,000 diversified records.")
+print("Logic: Parts 1-33 > Supplier A | Parts 34-66 > Supplier B | Parts 67-100 > Supplier C")
