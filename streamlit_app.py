@@ -6,7 +6,7 @@ from datetime import datetime
 
 # Set page configuration for a premium DARK THEME production experience
 st.set_page_config(
-    page_title="Strategic Procurement Analytics",
+    page_title="Supplier Recommandation Analytics",
     page_icon="⚖️",
     layout="wide"
 )
@@ -222,7 +222,7 @@ else:
     selected_year = "All Years"
 
 # --- MAIN CONTENT ---
-st.title("Strategic Procurement Analytics Dashboard")
+st.title("Supplier Recommandation Analytics Dashboard")
 
 if df_history.empty:
     st.error("Data source missing.")
