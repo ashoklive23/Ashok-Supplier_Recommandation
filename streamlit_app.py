@@ -45,17 +45,20 @@ st.markdown("""
     }
     
     /* Dropdown/Selectbox styling: High Contrast on Navy */
-    div[data-baseweb="select"] {
+    div[data-baseweb="select"], div[data-baseweb="select"] > div {
         background-color: #0f172a !important;
+        color: #ffffff !important;
         border: 1px solid #334155 !important;
         border-radius: 8px !important;
     }
-    div[data-baseweb="select"] * {
+    div[data-baseweb="select"] div {
+        background-color: transparent !important; /* Fix for white background showing through */
         color: #ffffff !important;
     }
     ul[data-testid="stSelectboxVirtualList"] {
-        background-color: #1e293b !important;
+        background-color: #0f172a !important;
         color: #ffffff !important;
+        border: 1px solid #334155 !important;
     }
     li[role="option"] {
         background-color: #1e293b !important;
