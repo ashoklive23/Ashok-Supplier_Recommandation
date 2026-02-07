@@ -16,16 +16,16 @@ st.set_page_config(
 # AND strictly styles the dropdowns for production-grade visual excellence.
 st.markdown("""
 <style>
-    /* GLOBAL DARK MODE - ABSOLUTE BLACK */
-    .stApp, section[data-testid="stSidebar"], div[data-testid="stSidebar"] {
-        background-color: #000000 !important;
-        color: #ffffff !important;
+    /* Global Background: Deep Black/Navy (Reverted to Premium Look) */
+    .stApp { 
+        background-color: #0f172a !important; 
+        color: #ffffff !important; 
     }
     
-    /* Force Sidebar & App Background to Absolute Black */
+    /* Sidebar: Professional Slate */
     section[data-testid="stSidebar"] {
-        background-color: #000000 !important;
-        border-right: 1px solid #333333;
+        background-color: #1e293b !important;
+        border-right: 1px solid #334155;
     }
     
     /* Force ALL headers to Pure White */
@@ -36,33 +36,33 @@ st.markdown("""
 
     /* Recommendation Card: Dark mode with subtle border */
     .recommendation-card {
-        background-color: #111827; /* Very dark slate for contrast */
-        border: 2px solid #374151;
+        background-color: #1e293b;
+        border: 2px solid #334155;
         padding: 40px;
         border-radius: 12px;
         margin-bottom: 30px;
         color: #ffffff !important;
     }
     
-    /* Dropdown/Selectbox styling: Pure Black/White for high contrast */
+    /* Dropdown/Selectbox styling: High Contrast on Navy */
     div[data-baseweb="select"] {
-        background-color: #000000 !important;
-        border: 1px solid #ffffff !important;
-        border-radius: 4px !important;
+        background-color: #0f172a !important;
+        border: 1px solid #334155 !important;
+        border-radius: 8px !important;
     }
     div[data-baseweb="select"] * {
         color: #ffffff !important;
     }
     ul[data-testid="stSelectboxVirtualList"] {
-        background-color: #000000 !important;
-        border: 1px solid #ffffff !important;
+        background-color: #1e293b !important;
+        color: #ffffff !important;
     }
     li[role="option"] {
-        background-color: #000000 !important;
+        background-color: #1e293b !important;
         color: #ffffff !important;
     }
     li[role="option"]:hover {
-        background-color: #333333 !important;
+        background-color: #334155 !important;
     }
 
     /* Force ALL standard text/lists to White */
@@ -70,7 +70,7 @@ st.markdown("""
         color: #ffffff !important;
     }
     
-    /* Metric Styling: Vibrant colors on dark background */
+    /* Metric Styling: Radiant colors */
     div[data-testid="stMetricValue"] {
         color: #38bdf8 !important; /* Sky Blue */
         font-weight: 900 !important;
@@ -79,20 +79,19 @@ st.markdown("""
     div[data-testid="stMetricLabel"] {
         color: #94a3b8 !important;
         font-weight: 700 !important;
-        text-transform: uppercase;
     }
 
     /* Highlight classes for dark mode */
     .highlight-green { color: #4ade80 !important; font-weight: 800; }
     .highlight-blue { color: #38bdf8 !important; font-weight: 800; }
     
-    /* Tables/Dataframes: Ensure dark mode compatibility */
+    /* Tables/Dataframes: Clear visibility */
     .stDataFrame, div[data-testid="stTable"] {
-        background-color: #111827 !important;
+        background-color: #1e293b !important;
         color: #ffffff !important;
     }
     
-    /* Tabs: White text with Blue selection */
+    /* Tabs: Navy styling */
     .stTabs [data-baseweb="tab"] {
         color: #94a3b8 !important;
         font-weight: 700 !important;
