@@ -25,7 +25,12 @@ st.markdown("""
     /* Target the Header at the top to match the theme */
     header[data-testid="stHeader"] {
         background-color: #0f172a !important;
-        color: #ffffff !important;
+    }
+    header[data-testid="stHeader"] svg {
+        fill: #ffffff !important; /* Make icons white */
+    }
+    header[data-testid="stHeader"] span {
+        color: #ffffff !important; /* Make "Share" text white */
     }
     
     /* Sidebar: Professional Slate */
@@ -120,7 +125,6 @@ st.markdown("""
 # --- Data Loading ---
 DATA_PATH = 'supplier_history_v2.csv'
 
-@st.cache_data
 def load_data():
     if not os.path.exists(DATA_PATH):
         st.error(f"DEPLOYMENT ERROR: File '{DATA_PATH}' not found in the application root.")
