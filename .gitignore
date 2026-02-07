@@ -4,5 +4,9 @@ __pycache__/
 .ipynb_checkpoints/
 .streamlit/
 .DS_Store
+
+# Ignore all CSVs EXCEPT the one needed for production
 *.csv
+!supplier_history_v2.csv
+
 # Keeping requirements.txt and .py files only for clean push

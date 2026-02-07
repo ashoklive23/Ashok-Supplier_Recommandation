@@ -84,7 +84,8 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # --- Data Loading ---
-DATA_PATH = 'd:/Ashok Project -Kaggle/supplier_history_v2.csv'
+# Use relative path for Streamlit Cloud compatibility
+DATA_PATH = 'supplier_history_v2.csv'
 
 @st.cache_data
 def load_data():
