@@ -7,7 +7,7 @@ from datetime import datetime
 # Set page configuration for a premium DARK THEME production experience
 st.set_page_config(
     page_title="Supplier Recommandation Analytics",
-    page_icon="⚖️",
+    page_icon="🏭",
     layout="wide"
 )
 
@@ -217,13 +217,13 @@ if not df_history.empty:
     part_list = sorted(df_history['Part_Number'].unique().tolist())
     selected_part = st.sidebar.selectbox("📦 Select Part Number", part_list)
     available_years = ["All Years"] + sorted([str(int(y)) for y in df_history['Year'].dropna().unique()], reverse=True)
-    selected_year = st.sidebar.selectbox("📅 Analysis Year", available_years)
+    selected_year = st.sidebar.selectbox("️ Analysis Year", available_years)
 else:
     selected_part = None
     selected_year = "All Years"
 
 # --- MAIN CONTENT ---
-st.title("� Supplier Recommandation Analytics Dashboard")
+st.title("🏢 Supplier Recommandation Analytics Dashboard")
 st.markdown("---")
 
 if df_history.empty:
@@ -238,7 +238,7 @@ elif selected_part:
         st.markdown(f"""
         <div class="recommendation-card">
             <div style="display: flex; align-items: center; gap: 15px;">
-                <span style="font-size: 2.5rem;">🏆</span>
+                <span style="font-size: 2.5rem;">🤝</span>
                 <div>
                    <span style="color: #94a3b8; font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">AI Top-Ranked Partner</span>
                    <h1 style="margin: 0; font-size: 4rem; color: #ffffff !important; line-height: 1;">{best['Supplier Name']}</h1>
