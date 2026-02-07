@@ -83,29 +83,29 @@ st.markdown("""
     }
 
     /* STYLING DROPDOWNS (SELECTBOX) FOR PRODUCTION */
-    /* This targets the input field and the list items to be high-contrast */
+    /* Absolute Black Background for Search Engine visibility */
     div[data-baseweb="select"] {
-        background-color: #0f172a !important;
+        background-color: #000000 !important;
+        border: 1px solid #38bdf8 !important; /* Stylish Blue Border */
         border-radius: 8px !important;
     }
-    div[data-baseweb="select"] div {
-        color: #ffffff !important; /* Text inside the selected box */
+    div[data-baseweb="select"] * {
+        color: #ffffff !important; /* High-contrast white text */
     }
     /* Style the dropdown list items */
     ul[data-testid="stSelectboxVirtualList"] {
-        background-color: #1e293b !important;
+        background-color: #000000 !important;
         color: #ffffff !important;
-        border: 1px solid #334155 !important;
+        border: 1px solid #38bdf8 !important;
     }
     li[role="option"] {
-        background-color: #1e293b !important;
+        background-color: #000000 !important;
         color: #ffffff !important;
     }
     li[role="option"]:hover {
-        background-color: #334155 !important;
+        background-color: #1e293b !important;
         color: #38bdf8 !important;
     }
-
 </style>
 """, unsafe_allow_html=True)
 
