@@ -22,6 +22,12 @@ st.markdown("""
         color: #ffffff !important; 
     }
     
+    /* Target the Header at the top to match the theme */
+    header[data-testid="stHeader"] {
+        background-color: #0f172a !important;
+        color: #ffffff !important;
+    }
+    
     /* Sidebar: Professional Slate */
     section[data-testid="stSidebar"] {
         background-color: #1e293b !important;
